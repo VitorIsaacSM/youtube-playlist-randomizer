@@ -1,0 +1,52 @@
+.pagina {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+    .info {
+        width: 50vw;
+        padding: 15px;
+        h2 {
+            padding: 20px;
+        }
+
+        .form {
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        .playlists {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .playlist-card {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 10px;
+
+                span {
+                    margin-left: 15px;
+                }
+            }
+        }
+    }
+
+    .playlist {
+        padding: 10px;
+
+        .video-card {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+
+            span {
+                margin-left: 15px;
+            }
+        }
+    }
+    
+}

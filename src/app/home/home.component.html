@@ -1,0 +1,20 @@
+<div class="pagina">
+    <div class="info">
+        <h2>
+            Youtube playlist randomizer
+        </h2>
+        <div class="form">
+            <p>Digite o nome ou ID da playlist</p>
+            <div>
+                <input [formControl]="form" type="text" (keyup.enter)="search()">
+                <button (click)="search()">Pesquisar</button>
+            </div>
+        </div>
+        <div class="playlists">
+            <div *ngFor="let playlist of playlistsFound" class="playlist-card" (click)="openPlaylist(playlist.id)">
+                <img [src]="playlist.snippet.thumbnails.default.url" alt="pic">
+                <span>{{playlist.snippet.title}}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="pagina">
+    <div class="video" *ngIf="!!activeVideoId">
+        <!-- <iframe [src]="('https://www.youtube.com/embed/' + activeVideoId) | safe: 'resourceUrl'">
+        </iframe> -->
+        <youtube-player #player [videoId]="activeVideoId" [height]="600" [width]="600" (stateChange)="stateChanges($event)">
+
+        </youtube-player>
+    </div>
+    <div class="playlist">
+        <div class="playlist-menu">
+            <button (click)="player.playVideo()">Play</button>
+            <button (click)="shuffle()">Shuffle</button>
+            <button (click)="next()">Next</button>
+            <button (click)="prev()">Prev</button>
+        </div>
+        <div class="items">
+            <div *ngFor="let item of items" class="video-card">
+                <img [src]="item.snippet.thumbnails.default.url" alt="pic">
+                <span>{{item.snippet.title}}</span>
+            </div>
+        </div>
+    </div>
+</div>
