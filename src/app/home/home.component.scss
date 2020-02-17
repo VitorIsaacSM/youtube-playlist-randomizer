@@ -87,7 +87,9 @@
       margin: 5px;
       transition: background-color 0.2s ease, color 0.2s ease;
 
-
+      img {
+        max-width: 17vw;
+      }
       &:hover {
         background-color: #fff;
         color: #000;
