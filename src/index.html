@@ -1,13 +1,77 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Youtube Playlist Randomizer</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    div#bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      z-index: -1;
+    }
+  </style>
 </head>
+
 <body>
+  <div id="bg"></div>
   <app-root></app-root>
+  <script src="assets/p5.min.js"></script>
+  <script src="assets/vanta.trunk.min.js"></script>
+  <script>
+
+    let spacing = 10;
+    let chaos = 10;
+
+    let nextSpacing = spacing;
+    let nextChaos = chaos;
+
+    const effect = VANTA.TRUNK({
+      el: "#bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xd21f1f,
+      spacing: spacing,
+      chaos: chaos
+    })
+
+    const updateBackground = () => {
+      effect.setOptions({
+        spacing: spacing,
+        chaos: chaos
+      })
+    }
+
+    const randomizeBackground = () => {
+      if (spacing === nextSpacing) {
+        nextSpacing = Math.round(Math.random() * 10) + 2;
+      } else {
+        spacing > nextSpacing ? spacing -= 0.25 : spacing += 0.25;
+      }
+
+
+      if (chaos === nextChaos) {
+        nextChaos = Math.round(Math.random() * 10) + 2;
+      } else {
+        chaos > nextChaos ? chaos -= 0.25 : chaos += 0.25;
+      }
+
+      updateBackground();
+      requestAnimationFrame(randomizeBackground);
+    }
+
+    randomizeBackground();
+  </script>
 </body>
+
 </html>

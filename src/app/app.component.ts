@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { LoadingService } from './loading/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent { 
+
+  constructor(private loadingService: LoadingService) {}
+
+  get loading() {
+    return this.loadingService.showLoading;
+  }
 }

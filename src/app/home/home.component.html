@@ -1,20 +1,35 @@
 <div class="pagina">
-    <div class="info">
-        <h2>
+    <div id="searchbar" class="info">
+        <h1>
             Youtube playlist randomizer
-        </h2>
+        </h1>
         <div class="form">
-            <p>Digite o nome ou ID da playlist</p>
+            <p>Ouça suas playlists sem repetir videos no modo aleatório!</p>
             <div>
-                <input [formControl]="form" type="text" (keyup.enter)="search()">
+                <input placeholder="Nome ou ID da playlist" [formControl]="form" type="text" (keyup.enter)="search()">
                 <button (click)="search()">Pesquisar</button>
             </div>
         </div>
-        <div class="playlists">
-            <div *ngFor="let playlist of playlistsFound" class="playlist-card" (click)="openPlaylist(playlist.id)">
-                <img [src]="playlist.snippet.thumbnails.default.url" alt="pic">
-                <span>{{playlist.snippet.title}}</span>
-            </div>
+    </div>
+    <div class="playlists">
+        <div *ngFor="let playlist of playlistsFound" class="playlist-card"
+            (click)="openPlaylist(playlist.id.playlistId)">
+            <img [src]="playlist.snippet.thumbnails.medium.url" alt="pic">
+            <h3>{{playlist.snippet.title}}</h3>
+        </div>
+    </div>
+    <div class="pagination">
+        <div>
+            <button *ngIf="prevPageToken" (click)="changePage(this.prevPageToken)">
+                <i class="fas fa-angle-left mr-4"></i>
+                <h2>Página anterior</h2>
+            </button>
+        </div>
+        <div>
+            <button *ngIf="nextPageToken" (click)="changePage(this.nextPageToken)">
+                <h2>Próxima página</h2>
+                <i class="fas fa-angle-right ml-4"></i>
+            </button>
         </div>
     </div>
 </div>

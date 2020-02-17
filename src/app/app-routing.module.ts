@@ -13,15 +13,11 @@ const routes: Routes = [
   {
     path: 'playlist/:id',
     component: PlaylistComponent
-  },
-  {
-    path: '**',
-    redirectTo: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

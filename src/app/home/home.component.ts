@@ -11,7 +11,10 @@ import { API_KEY } from 'api_key';
 })
 export class HomeComponent implements OnInit {
 
-  form = new FormControl('PLq2mrFlQJXkBz39YS0TjE_gU7i111FP3B');
+  form = new FormControl('');
+  nextPageToken: string = null;
+  prevPageToken: string = null;
+  pageToken: string = null;
 
   res: any = {};
   
@@ -30,13 +33,23 @@ export class HomeComponent implements OnInit {
       q: this.input,
       type: 'playlist',
       key: API_KEY,
-      order: 'title'
+      order: 'title',
+      maxResults: 30
     };
 
+    if(this.pageToken) {
+      params['pageToken'] = this.pageToken;
+    }
+
     if (this.input.length === 34 && this.input.split(' ').length === 1) {
-      this.getPlaylist().subscribe((res: any) => this.playlistsFound = res.items);
+      this.getPlaylist().subscribe((res: any) => this.router.navigate(['playlist', res.items[0].id]));
     } else {
-      this.http.get('https://www.googleapis.com/youtube/v3/search', {params}).subscribe((res: any) => this.playlistsFound = res.items);
+      this.http.get('https://www.googleapis.com/youtube/v3/search', {params}).subscribe((res: any) => {
+        this.playlistsFound = res.items
+        this.nextPageToken = res.nextPageToken;
+        this.prevPageToken = res.prevPageToken;
+        document.getElementById('searchbar').scrollIntoView({behavior: 'smooth'});
+      });
     }
   }
 
@@ -53,7 +66,14 @@ export class HomeComponent implements OnInit {
   }
 
   openPlaylist(id: string) {
+    console.log('xamei');
+    console.log(id);
     this.router.navigate(['playlist', id])
   }
 
+
+  changePage(token: string) {
+    this.pageToken = token;
+    this.search();
+  }
 }

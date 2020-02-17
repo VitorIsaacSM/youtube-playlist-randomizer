@@ -16,6 +16,8 @@ export class PlaylistComponent implements OnInit {
   activeVideoId: string;
   activeVideoIndex: number;
 
+  isPaused = true;
+
   @ViewChild("player", { static: null }) player: YouTubePlayer;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
@@ -70,6 +72,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   stateChanges(event: { data: number }) {
+    console.log(event)
     if (event.data === 5 && this.activeVideoIndex !== 0) {
       this.player.playVideo();
     }
@@ -77,6 +80,7 @@ export class PlaylistComponent implements OnInit {
       this.activeVideoIndex++;
       this.changeToActiveVideo();
     }
+    this.isPaused = event.data !== 1;
   }
 
   shuffle() {
@@ -96,6 +100,7 @@ export class PlaylistComponent implements OnInit {
       this.items[randomIndex] = temporaryValue;
     }
 
+    this.activeVideoIndex = 0;
     this.changeToActiveVideo();
   }
 
@@ -107,5 +112,23 @@ export class PlaylistComponent implements OnInit {
   prev() {
     this.activeVideoIndex--;
     this.changeToActiveVideo()
+  }
+
+
+  get vidWidth() {
+    return (window.innerWidth / 2);
+  }
+
+  get vidHeight() {
+    return (window.innerHeight / 1.5);
+  }
+
+  playAndPause() {
+    this.isPaused ? this.player.playVideo() : this.player.pauseVideo();
+  }
+
+  selectVideo(index: number) {
+    this.activeVideoIndex = index;
+    this.changeToActiveVideo();
   }
 }

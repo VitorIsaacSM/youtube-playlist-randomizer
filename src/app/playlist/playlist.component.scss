@@ -1,38 +1,85 @@
 .pagina {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10px 0px 10px;
+  .video,
+  .playlist {
+    flex: 1;
+    padding: 20px;
+  }
 
-    .video, .playlist {
-        flex: 1;
-        padding: 20px;
-    }
+  .video iframe {
+    width: 100%;
+    height: 600px;
+  }
 
-    .video iframe {
-        width: 100%;
-        height: 600px;
-    }
+  .playlist {
+    .playlist-menu {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid #fff;
+      border-radius: 25px;
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 20px;
 
-    .playlist {
-        .playlist-menu {
-            display: flex;
-            align-items: center;
-            padding: 20px;
+      i {
+        border: 1px solid #fff;
+        height: 70px;
+        border-radius: 100px;
+        color: #fff;
+        background-color: #0000;
+        width: 70px;
+        box-sizing: border-box;
+        font-size: 25px;
+        text-align: center;
+        line-height: 70px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        cursor: pointer;
+
+        &.disabled {
+            cursor: auto;
+            color: gray;
+            border-color: gray;
         }
-
-        .items {
-            max-height: 60vh;
-            overflow-y: auto;
-            .video-card {
-                margin: 10px;
-                padding: 15px;
-                display: flex;
-                align-items: center;
-
-                span {
-                    margin-left: 15px;
-                }
-            }
+        &:hover:not(.disabled) {
+            color: black;
+            background-color: white;
         }
+      }
     }
+
+    .items {
+      max-height: 70vh;
+      overflow-y: auto;
+      .video-card {
+        margin: 10px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        color: white;
+
+        img {
+            width: 8vw;
+            height: auto;
+            object-fit: contain;
+        }
+        h2 {
+          margin-left: 15px;
+        }
+        &:hover {
+            outline: 1px solid white;
+            cursor: pointer;
+        }
+      }
+
+      .video-card.active {
+          background-color: white;
+          border: 1px solid white;
+          color: black;
+      }
+    }
+  }
 }
