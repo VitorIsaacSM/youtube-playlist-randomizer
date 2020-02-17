@@ -72,7 +72,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   stateChanges(event: { data: number }) {
-    console.log(event)
     if (event.data === 5 && this.activeVideoIndex !== 0) {
       this.player.playVideo();
     }

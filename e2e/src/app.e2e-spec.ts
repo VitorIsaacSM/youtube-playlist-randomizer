@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('YoutubePlaylistRandomzier app is running!');
+    expect(page.getTitleText()).toEqual('YoutubePlaylistRandomizer app is running!');
   });
 
   afterEach(async () => {
