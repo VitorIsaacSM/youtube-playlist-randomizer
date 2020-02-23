@@ -75,10 +75,12 @@
   .playlists {
     margin: auto;
     display: grid;
-    grid-template-columns: 18% 18% 18% 18% 18%;
-    grid-auto-rows: 300px;
+    grid-template-columns: 20% 20% 20% 20% 20%;
     justify-content: center;
     justify-items: center;
+    margin: 0 5%;
+    background-color: #0009;
+    border-radius: 6px;
 
     .playlist-card {
       padding: 5px;

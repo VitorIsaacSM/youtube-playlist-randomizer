@@ -1,9 +1,14 @@
 <div class="pagina">
-    <div class="video" *ngIf="!!activeVideoId">
-        <!-- <iframe [src]="('https://www.youtube.com/embed/' + activeVideoId) | safe: 'resourceUrl'">
-        </iframe> -->
-        <youtube-player #player [videoId]="activeVideoId" [height]="vidHeight" [width]="vidWidth" (stateChange)="stateChanges($event)">
-
+    <div class="video">
+        <youtube-player 
+            *ngIf="!!activeVideoId" 
+            #player 
+            [videoId]="activeVideoId" 
+            [height]="vidHeight" 
+            [width]="vidWidth"
+            [showBeforeIframeApiLoads]="true"
+            (stateChange)="stateChanges($event)"
+            (ready)="removeLoading()">
         </youtube-player>
     </div>
     <div class="playlist">

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute } from "@angular/router";
 import { YouTubePlayer } from "@angular/youtube-player";
 import { API_KEY } from 'api_key';
+import { LoadingService } from '../loading/loading.service';
 
 @Component({
   selector: "app-playlist",
@@ -18,9 +19,13 @@ export class PlaylistComponent implements OnInit {
 
   isPaused = true;
 
+  context = new AudioContext();
+  analyser = this.context.createAnalyser();
+  source: MediaElementAudioSourceNode;
+
   @ViewChild("player", { static: null }) player: YouTubePlayer;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private loading: LoadingService) {}
 
   ngOnInit() {
     const tag = document.createElement("script");
@@ -30,13 +35,8 @@ export class PlaylistComponent implements OnInit {
     this.makeRequest(null);
   }
 
-  log(a: any) {
-    console.log(a);
-  }
-
   makeRequest(pageToken: string) {
     if (!this.playlistId) {
-      console.error("id zuado");
       return;
     }
     const params = {
@@ -53,14 +53,13 @@ export class PlaylistComponent implements OnInit {
     this.http
       .get("https://www.googleapis.com/youtube/v3/playlistItems", { params })
       .subscribe((res: any) => {
-        console.log(res);
         this.items = [...this.items, ...res.items];
-        console.log(this.items);
         if (res.nextPageToken) {
           this.makeRequest(res.nextPageToken);
         } else {
           this.activeVideoIndex = 0;
           this.changeToActiveVideo();
+          this.loading.showLoading = false;
         }
       });
   }
@@ -87,13 +86,9 @@ export class PlaylistComponent implements OnInit {
       temporaryValue,
       randomIndex;
 
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-      // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-
-      // And swap it with the current element.
       temporaryValue = this.items[currentIndex];
       this.items[currentIndex] = this.items[randomIndex];
       this.items[randomIndex] = temporaryValue;
@@ -129,5 +124,9 @@ export class PlaylistComponent implements OnInit {
   selectVideo(index: number) {
     this.activeVideoIndex = index;
     this.changeToActiveVideo();
+  }
+
+  removeLoading() {
+    this.loading.showLoading = false;
   }
 }
